@@ -1,8 +1,11 @@
 import '../style/app.scss';
 import loader from 'sass-loader';
-const actualNewsUrl = 'https://renemorozowich.com/wp-json/wp/v2/posts'
-const latestNewsUrl = 'https://renemorozowich.com/wp-json/wp/v2/posts?categories=33'
-const imgUrl = 'https://renemorozowich.com/wp-json/wp/v2/media/'
+const cors = 'https://cors-anywhere.herokuapp.com/'
+const actualNewsUrl = cors + 'https://renemorozowich.com/wp-json/wp/v2/posts'
+const latestNewsUrl = cors + 'https://renemorozowich.com/wp-json/wp/v2/posts?categories=33'
+const imgUrl = cors + 'https://renemorozowich.com/wp-json/wp/v2/media/'
+
+const items = []
 
 fetch(actualNewsUrl)
     .then(data => (data.json()))
@@ -16,6 +19,7 @@ fetch(actualNewsUrl)
         }
         let point = 1;
         data.forEach((e, i) => {
+            items.push(e);
             let featured_media = e.featured_media
             let result = e.title.rendered
             let date = e.date
@@ -27,6 +31,7 @@ fetch(actualNewsUrl)
             selectWrapper.appendChild(createNewContentWrapper)
 
             let selectContentWrapper = document.querySelector(`#content_wrapper_${i + 1}`)
+            selectContentWrapper.hidden = true
             let createNewElement = document.createElement('div')
             createNewElement.textContent = result
             createNewElement.setAttribute('id', `element_${i + 1}`)
@@ -79,7 +84,25 @@ window.addEventListener('load', () => {
 
 let showMore = document.querySelector('.main-container__left__show-more__wrapper')
 let showMoreText = showMore.querySelector(".main-container__left__show-more__wrapper__text")
+let currentIndex = 0
 
 showMore.onclick = () => {
-    showMoreText.textContent = "LOADING"
+    showMoreText.textContent = "LOADING..."
+    showMore.style.pointerEvents = 'none';
+    let render = 3
+    for (let i = 0; i < render; i++) {
+        if (currentIndex < items.length) {
+            currentIndex++
+            document.querySelector(`#content_wrapper_${currentIndex}`).hidden = false
+        }
+    }
+    if (currentIndex >= items.length) {
+        document.querySelector(`.main-container__left__show-more__wrapper`).hidden = true
+        return
+    }
+    showMore.disabled = true;
+    setTimeout(() => { //async emulation
+        showMoreText.textContent = "SHOW MORE"
+        showMore.style.pointerEvents = 'auto';
+    }, 2000)
 }
