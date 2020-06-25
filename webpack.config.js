@@ -30,5 +30,8 @@ module.exports = {
     devServer: {
         contentBase: './src/public',
         port: 3000,
+    },
+    node: {
+        fs: 'empty'
     }
 };
