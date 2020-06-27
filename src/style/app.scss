@@ -1,16 +1,15 @@
 * {
     box-sizing: border-box;
     font-family: Ubuntu;
+    padding: 0;
+    margin: 0;
 }
 
 ul{
-    padding: 0;
-    margin: 0;
     list-style-type: none;
 }
 
 body{
-    margin: 0;
     background: #1E2124;
     color: #BFC0C1;
     height: 100%;
@@ -379,6 +378,7 @@ a{
                 outline: none;
             }
             &__btn{
+                padding: 0 0.6vw;
                 background-color: #737678;
                 outline: none;
                 border: none;
