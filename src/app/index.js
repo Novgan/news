@@ -3,8 +3,10 @@ const cors = 'https://cors-anywhere.herokuapp.com/'
 const actualNewsUrl = 'https://renemorozowich.com/wp-json/wp/v2/posts'
 const latestNewsUrl = 'https://renemorozowich.com/wp-json/wp/v2/posts?categories=33'
 const imgUrl = 'https://renemorozowich.com/wp-json/wp/v2/media/'
+const categories = 'https://renemorozowich.com/wp-json/wp/v2/categories/'
 
 //if ERROR 429 remove cors
+
 let lengthArray
 let div = document.createElement('div');
 div.classList.add('main-container__left__content__wrapper__main', 'position-relative')
@@ -91,7 +93,10 @@ fetch(actualNewsUrl)
             createNewInfo.style.pointerEvents = "none";
             createNewInfo.classList.add(`main-container__left__content__wrapper__info`)
             let createNewBtn = document.createElement('button')
-            createNewBtn.textContent = 1
+            fetch(categories + e.categories[0]).then(categoriesInfo => (categoriesInfo.json()))
+                .then((categoriesInfo) => {
+                    createNewBtn.textContent = categoriesInfo.name
+                })
             createNewBtn.classList.add(`main-container__left__content__wrapper__btn`)
             fetch(imgUrl + featured_media).then(mediaData => (mediaData.json()))
                 .then(mediaData => {
@@ -108,7 +113,7 @@ fetch(actualNewsUrl)
                         let someElement = document.createElement('div')
                         someElement.style.pointerEvents = "none";
                         someElement.classList.add('main-container__left__content__wrapper__info__wrapper__content')
-                        someElement.textContent = e.content.rendered.slice(0, 100).replace(/<p>/g, '').replace(/you&#8217/g, '').replace(/<a rel=/g, '').replace(/<[/]p>/g, '').replace(/<[/]a>/g, '') + ' ...'
+                        someElement.textContent = e.excerpt.rendered.slice(0, 200).replace(/<p>/g, '').replace(/<[/]p>/g, '').replace(/&#8217;/g, '`') + ' ...'
                         selectContentWrapper.appendChild(some).appendChild(someElement)
                         selectContentWrapper.appendChild(some).appendChild(createNewInfo)
                     } else {
@@ -135,7 +140,10 @@ fetch(latestNewsUrl)
             createNewElement.textContent = result
             createNewElement.classList.add('main-container__right__wrapper__content__text')
             let createNewButton = document.createElement('button')
-            createNewButton.textContent = i
+            fetch(categories + e.categories[0]).then(categoriesInfo => (categoriesInfo.json()))
+                .then((categoriesInfo) => {
+                    createNewButton.textContent = categoriesInfo.name
+                })
             createNewButton.classList.add('main-container__right__wrapper__content__btn')
             let createNewInfoWrapper = document.createElement('div')
             createNewInfoWrapper.classList.add('main-container__right__wrapper__content__info')
@@ -215,8 +223,6 @@ let x = window.matchMedia("(max-width: 1050px)")
 let menu = document.querySelector('.header__logo')
 let headerMenu = document.querySelector('.header__menu')
 let menuItem = document.querySelector('.header__menu__items')
-menuItem.textContent = 'EXIT'
-menuItem.style.color = '#DCA74A'
 
 
 
@@ -235,9 +241,13 @@ let menuReverseRoll = () => {
 
 let myFunction = x => {
     if (x.matches) {
+        menuItem.textContent = 'EXIT'
+        menuItem.style.color = '#DCA74A'
         menu.addEventListener('click', menuRoll)
         menuItem.addEventListener('click', menuReverseRoll)
     } else {
+        menuItem.textContent = 'Policy'
+        menuItem.style.color = '#BFC0C1'
         menu.removeEventListener('click', menuRoll)
         menuItem.removeEventListener('click', menuReverseRoll)
     }
