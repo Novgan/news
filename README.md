@@ -6,6 +6,8 @@
 
 Если возникает проблема: 
 has been blocked by CORS policy
-Добавте переменную cors к actualNewsUrl, latestNewsUrl, imgUrl.
+Добавте переменную cors к `actualNewsUrl`, `latestNewsUrl`, `imgUrl`.
+
 Exemple:
+
 const actualNewsUrl = cors + 'https://renemorozowich.com/wp-json/wp/v2/posts'
