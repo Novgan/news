@@ -11,15 +11,25 @@
 
 <body>
     <div class="loader hidden">
-        <img src="./preloader.svg" alt="loading...">
+        <img src="assets/img/preloader.svg" alt="loading...">
     </div>
-    <div class="background-container">
-        <i class="fas fa-caret-right background-container__img"></i>
+    <!-- <div class="holder">
+        <div class="smallLine smallLine1"></div>
+        <div class="smallLine smallLine2"></div>
+    </div> -->
+    <div class="square">
+        <div class="square__of-square"></div>
+    </div>
+    <div class="square">
+        <div class="square__of-square"></div>
+    </div>
+    <div class="background">
+        <img class="background__img" src="assets/img/background.png" alt="background">
     </div>
     <header class="header">
-        <div>
+        <div class="header__logo">
             <a href="#">
-                <img src="icon.png" alt="Icon">
+                <img src="assets/img/icon.png" alt="Icon">
             </a>
         </div>
         <div class="header__menu">
@@ -52,10 +62,12 @@
                 </div>
                 <div class="main-container__left__head-items__mystic"></div>
                 <div class="main-container__left__head-items__filter">
-                    <span class="main-container__left__head-items__filter__text">
-                        by novelty
-                    </span>
-                    <i class="fa fa-angle-down main-container__left__head-items__filter__icon" aria-hidden="true"></i>
+                    <select>
+                        <option selected="selected">by novelty</option>
+                        <option>newness</option>
+                        <option>author</option>
+                        <option>date</option>
+                    </select>
                 </div>
             </div>
             <div class="main-container__left__content">
@@ -77,11 +89,83 @@
                 <span>LATEST NEWS</span>
             </div>
             <div class="main-container__right__wrapper">
-
             </div>
         </div>
     </main>
     <footer class="footer">
+        <div class="footer__items">
+            <div class="footer__items__icon">
+                <a href="#">
+                    <img src="assets/img/icon.png" alt="Icon">
+                </a>
+            </div>
+            <div>Online edition of honest news.<br>© All rights reserved. 2019</div>
+        </div>
+        <div class="footer__items">
+            <div class="footer__items__title">MENU</div>
+            <ul>
+                <li>Policy</li>
+                <li>Economics</li>
+                <li>Incidents</li>
+                <li>Sports</li>
+                <li>Culture</li>
+            </ul>
+        </div>
+        <div class="footer__items">
+            <div class="footer__items__title">ADDITIONAL INFORMATION</div>
+            <ul>
+                <li>Privacy Policy</li>
+                <li>Terms of Use</li>
+                <li>Advertising</li>
+            </ul>
+        </div>
+        <div class="footer__items">
+            <div class="footer__items__title">CONTACTS</div>
+            <div>
+                <a href="newsexpert.life@gmail.com">newsexpert.life@gmail.com</a>
+            </div>
+            <ul class="footer__items__icon-list">
+                <li>
+                    <a href="https://www.facebook.com/">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://vk.com/">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://web.telegram.org/">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://ok.ru/">
+                        <i class="fab fa-odnoklassniki"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__items">
+            <div class="footer__items__title">
+                NEW SUBSCRIPTION
+            </div>
+            <div class="footer__items__field">
+                <input class="footer__items__field__textarea" type="text" placeholder="tretyakbro@gmail.com">
+                <input class="footer__items__field__btn" value="→" type="submit">
+            </div>
+        </div>
     </footer>
 </body>
 
