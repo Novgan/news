@@ -5,6 +5,7 @@
 4. Для остановки дев сервера в консоле(терминале) необходимо нажать CTRL+C
 
 Если возникает проблема: 
+
 has been blocked by CORS policy
 Добавте переменную cors к `actualNewsUrl`, `latestNewsUrl`, `imgUrl`.
 
