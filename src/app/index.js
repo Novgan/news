@@ -42,17 +42,20 @@ fetch(actualNewsUrl)
             if (point % 2 === 0) {
                 let createNewCurrentElement = document.createElement('div')
                 if (i + 1 === 5) {
-                    createNewCurrentElement.classList.add(`main-container__left__content__wrapper__main__element_${i + 1}`)
+                    createNewCurrentElement.setAttribute('id', `content_wrapper_${i + 1}`)
+                    createNewCurrentElement.classList.add(`main-container__left__content__wrapper__main__element_${i + 1}`, 'position-relative')
                     selectWrapper.appendChild(div).appendChild(createNewCurrentElement)
                 }
                 else if (i + 1 === 6) {
                     createNewCurrentElement.classList.add(`main-container__left__content__wrapper__main__two-elements`)
                     let someDiv = document.createElement('div')
-                    someDiv.classList.add(`main-container__left__content__wrapper__main__two-elements_${i + 1}`)
+                    someDiv.setAttribute('id', `content_wrapper_${i + 1}`)
+                    someDiv.classList.add(`main-container__left__content__wrapper__main__two-elements_${i + 1}`, 'position-relative')
                     div.appendChild(createNewCurrentElement).appendChild(someDiv)
                 }
                 else if (i + 1 === 7) {
-                    createNewCurrentElement.classList.add(`main-container__left__content__wrapper__main__two-elements_${i + 1}`)
+                    createNewCurrentElement.setAttribute('id', `content_wrapper_${i + 1}`)
+                    createNewCurrentElement.classList.add(`main-container__left__content__wrapper__main__two-elements_${i + 1}`, 'position-relative')
                     document.querySelector('.main-container__left__content__wrapper__main__two-elements').appendChild(createNewCurrentElement)
                 }
                 else {
@@ -69,15 +72,23 @@ fetch(actualNewsUrl)
             if (i + 1 === 6 || i + 1 === 7) {
                 selectContentWrapper = document.querySelector(`.main-container__left__content__wrapper__main__two-elements_${i + 1}`)
             }
-            /* if ((i + 1) > 3) {
+            if ((i + 1) > 3) {
                 selectContentWrapper.hidden = true
-            } */
+            }
             let createNewElement = document.createElement('div')
             createNewElement.textContent = result
+            createNewElement.style.pointerEvents = "none";
             createNewElement.setAttribute('id', `element_${i + 1}`)
-            createNewElement.classList.add(`main-container__left__content__wrapper__elements`)
+            if (i + 1 === 4)
+                createNewElement.classList.add(`main-container__left__content__wrapper__info-elements`)
+            else if (i + 1 === 6 || i + 1 === 7)
+                createNewElement.classList.add(`main-container__left__content__wrapper__elements__title`)
+            else
+                createNewElement.classList.add(`main-container__left__content__wrapper__elements`)
             let createNewInfo = document.createElement('div')
-            createNewInfo.textContent = date.slice(0, 10)
+            createNewInfo.textContent = date.slice(0, 10).replace(/-/g, '.')
+            createNewInfo.setAttribute('id', `date_${i + 1}`)
+            createNewInfo.style.pointerEvents = "none";
             createNewInfo.classList.add(`main-container__left__content__wrapper__info`)
             let createNewBtn = document.createElement('button')
             createNewBtn.textContent = 1
@@ -88,13 +99,21 @@ fetch(actualNewsUrl)
                     createNewImg.setAttribute('id', `img_${i + 1}`)
                     createNewImg.classList.add('main-container__left__content__wrapper__imgs')
                     createNewImg.src = mediaData.source_url
-                    if (i + 1 === 7) {
-
-                    }
                     selectContentWrapper.appendChild(createNewImg)
                     selectContentWrapper.appendChild(createNewElement)
-                    selectContentWrapper.appendChild(createNewInfo)
                     selectContentWrapper.appendChild(createNewBtn)
+                    if (i + 1 === 4) {
+                        let some = document.createElement('div')
+                        some.classList.add('main-container__left__content__wrapper__info__wrapper')
+                        let someElement = document.createElement('div')
+                        someElement.style.pointerEvents = "none";
+                        someElement.classList.add('main-container__left__content__wrapper__info__wrapper__content')
+                        someElement.textContent = e.content.rendered.slice(0, 100).replace(/<p>/g, '').replace(/you&#8217/g, '').replace(/<a rel=/g, '').replace(/<[/]p>/g, '').replace(/<[/]a>/g, '') + ' ...'
+                        selectContentWrapper.appendChild(some).appendChild(someElement)
+                        selectContentWrapper.appendChild(some).appendChild(createNewInfo)
+                    } else {
+                        selectContentWrapper.appendChild(createNewInfo)
+                    }
                 })
         })
     })
@@ -128,7 +147,7 @@ fetch(latestNewsUrl)
 
             let selectInfoWrapper = document.querySelector(`#right_content_wrapper_info_${i + 1}`)
             let createInfo = document.createElement('span')
-            createInfo.textContent = date.slice(0, 10)
+            createInfo.textContent = date.slice(0, 10).replace(/-/g, '.')
             selectInfoWrapper.appendChild(createInfo)
 
             if (i + 1 < data.length) {
@@ -160,8 +179,7 @@ showMore.onclick = () => {
             }
         }
         if (currentIndex >= lengthArray) {
-            document.querySelector(`.main - container__left__show - more__wrapper`).hidden = true
-            return
+            document.querySelector(`.main-container__left__show-more__wrapper`).hidden = true
         }
         showMore.disabled = true;
         showMoreText.textContent = "SHOW MORE"
@@ -191,3 +209,38 @@ search.onclick = () => {
         });
     }
 }
+
+
+let x = window.matchMedia("(max-width: 1050px)")
+let menu = document.querySelector('.header__logo')
+let headerMenu = document.querySelector('.header__menu')
+let menuItem = document.querySelector('.header__menu__items')
+menuItem.textContent = 'EXIT'
+menuItem.style.color = '#DCA74A'
+
+
+
+let menuRoll = () => {
+    headerMenu.style.top = 0
+    headerMenu.style.transform = 'translate-y(100%)'
+    headerMenu.style.transition = '1s'
+}
+let menuReverseRoll = () => {
+    headerMenu.style.top = '-100%'
+    headerMenu.style.transform = 'translate-y(-100%)'
+    headerMenu.style.transition = '1s'
+    console.log(12);
+
+}
+
+let myFunction = x => {
+    if (x.matches) {
+        menu.addEventListener('click', menuRoll)
+        menuItem.addEventListener('click', menuReverseRoll)
+    } else {
+        menu.removeEventListener('click', menuRoll)
+        menuItem.removeEventListener('click', menuReverseRoll)
+    }
+}
+myFunction(x)
+x.addListener(myFunction)
