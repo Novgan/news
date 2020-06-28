@@ -5,13 +5,19 @@
     margin: 0;
 }
 
-ul{
-    list-style-type: none;
+html{
+    ::-webkit-scrollbar {
+        width: 0 !important
+    }
 }
 
 body{
     background: #1E2124;
     color: #BFC0C1;
+}
+
+ul{
+    list-style-type: none;
 }
 
 a{
@@ -424,27 +430,6 @@ a{
 .square:nth-child(2) {
     top: 1005px;
 }
-
-
-/* .holder {
-    overflow: hidden;
-    position: relative;
-    width: 200px;
-    height: 50px;
-}
-
-.smallLine {
-    position: absolute;
-    width: 200px;
-    height: 5px;
-}
-
-.smallLine1 {
-    background: linear-gradient(45deg, transparent, transparent 49%, red 49%, transparent 51%);
-}
-.smallLine2 {
-    background: linear-gradient(-45deg, transparent, transparent 49%, red 49%, transparent 51%);
-} */
 
 @media screen and (max-width: 1050px){
     #img_5{
