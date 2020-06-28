@@ -66,12 +66,11 @@ fetch(actualNewsUrl)
             } else {
                 selectWrapper.appendChild(createNewContentWrapper)
             }
-
             let selectContentWrapper = document.querySelector(`#content_wrapper_${i + 1}`)
-            if (i + 1 === 5) {
+            if ((i + 1 % 5) === 0) {
                 selectContentWrapper = document.querySelector(`.main-container__left__content__wrapper__main__element_${i + 1}`)
             }
-            if (i + 1 === 6 || i + 1 === 7) {
+            if ((i + 1 % 6) === 0 || (i + 1 % 7) === 0) {
                 selectContentWrapper = document.querySelector(`.main-container__left__content__wrapper__main__two-elements_${i + 1}`)
             }
             if ((i + 1) > 3) {
@@ -83,7 +82,7 @@ fetch(actualNewsUrl)
             createNewElement.setAttribute('id', `element_${i + 1}`)
             if (i + 1 === 4)
                 createNewElement.classList.add(`main-container__left__content__wrapper__info-elements`)
-            else if (i + 1 === 6 || i + 1 === 7)
+            else if ((i + 1 % 6) === 0 || (i + 1 % 7) === 0)
                 createNewElement.classList.add(`main-container__left__content__wrapper__elements__title`)
             else
                 createNewElement.classList.add(`main-container__left__content__wrapper__elements`)
@@ -97,7 +96,7 @@ fetch(actualNewsUrl)
                 .then((categoriesInfo) => {
                     createNewBtn.textContent = categoriesInfo.name
                 })
-            createNewBtn.classList.add(`main-container__left__content__wrapper__btn`)
+            createNewBtn.classList.add(`main-container__left__content__wrapper__btn`, 'btn')
             fetch(imgUrl + featured_media).then(mediaData => (mediaData.json()))
                 .then(mediaData => {
                     let createNewImg = document.createElement('img')
@@ -144,20 +143,17 @@ fetch(latestNewsUrl)
                 .then((categoriesInfo) => {
                     createNewButton.textContent = categoriesInfo.name
                 })
-            createNewButton.classList.add('main-container__right__wrapper__content__btn')
+            createNewButton.classList.add('main-container__right__wrapper__content__btn', 'btn')
             let createNewInfoWrapper = document.createElement('div')
             createNewInfoWrapper.classList.add('main-container__right__wrapper__content__info')
             createNewInfoWrapper.setAttribute('id', `right_content_wrapper_info_${i + 1}`)
-
             selectElement.appendChild(createNewButton)
             selectElement.appendChild(createNewElement)
             selectElement.appendChild(createNewInfoWrapper)
-
             let selectInfoWrapper = document.querySelector(`#right_content_wrapper_info_${i + 1}`)
             let createInfo = document.createElement('span')
             createInfo.textContent = date.slice(0, 10).replace(/-/g, '.')
             selectInfoWrapper.appendChild(createInfo)
-
             if (i + 1 < data.length) {
                 let createLine = document.createElement('div')
                 createLine.classList.add('main-container__right__wrapper__content__line')
@@ -223,7 +219,7 @@ let x = window.matchMedia("(max-width: 1050px)")
 let menu = document.querySelector('.header__logo')
 let headerMenu = document.querySelector('.header__menu')
 let menuItem = document.querySelector('.header__menu__items')
-
+let latestNews = document.querySelector('.main-container__right__header__text')
 
 
 let menuRoll = () => {
@@ -241,12 +237,14 @@ let menuReverseRoll = () => {
 
 let myFunction = x => {
     if (x.matches) {
+        latestNews.textContent = 'LATEST'
         menuItem.textContent = 'EXIT'
         menuItem.style.color = '#DCA74A'
         menu.addEventListener('click', menuRoll)
         menuItem.addEventListener('click', menuReverseRoll)
     } else {
         menuItem.textContent = 'Policy'
+        latestNews.textContent = 'LATEST NEWS'
         menuItem.style.color = '#BFC0C1'
         menu.removeEventListener('click', menuRoll)
         menuItem.removeEventListener('click', menuReverseRoll)
